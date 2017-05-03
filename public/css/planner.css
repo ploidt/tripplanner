@@ -1,0 +1,53 @@
+div.scrollable {
+    overflow-x: auto;
+    white-space: nowrap;
+}
+div.scrollable [class*="col"]{
+    display: inline-block;
+    float: none;
+}
+
+div.scrollable h3{
+    white-space: normal !important;
+}
+
+.item > a .description{
+	right:20px;
+}
+
+#planner{
+	white-space: nowrap;
+	background-color: #f9f9f9;
+	height: 900px;
+	overflow-x: hidden;
+}
+
+#planner li.planner-day{
+	list-style: none;
+	margin: 0 20px 0 10px;
+	position: relative;
+	display: inline-block;
+	white-space: normal;
+	width: 600px;
+	background-color: #cdcdcd;
+	
+}
+
+.item.item-row > a .description {
+	padding-left: 40px;
+}
+
+.bg-transfer img{
+	display: block !important;
+	width: 100%;
+	height: 100%;
+}
+
+.day-header{
+	background-color: #4611a7;
+	color: #fff;
+	height: 60px;
+	width: 100%;
+	margin: 0 0 10px;
+	padding: 1px 10px 5px 10px;
+}

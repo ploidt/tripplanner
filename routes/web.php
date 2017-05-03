@@ -14,3 +14,14 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/map', 'SearchController@showAll');
+Route::post('/map', 'SearchController@search');
+
+Route::post('/marker', 'SearchController@searchMap');
+Route::get('/marker', 'SearchController@searchMapAll');
+
+Route::get('/planner', function () {
+    return view('planner');
+});
+Route::post('/planner', 'AttractionController@searchAttraction');
