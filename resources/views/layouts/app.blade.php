@@ -38,7 +38,7 @@
                 </div>
                 <div class="secondary-nav">
                     <a href="#" data-modal-external-file="modal_sign_in.php" data-target="modal-sign-in">Sign In</a>
-                    <a href="#" class="promoted" data-modal-external-file="modal_register.php" data-target="modal-register">Register</a>
+                    <a href="register" class="promoted">Register</a>
                 </div>
                 <!--end secondary-nav-->
                 
@@ -109,13 +109,15 @@
 <script type="text/javascript" src="{{ URL::asset('js/infobox.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/jquery.validate.min.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/jquery.fitvids.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('js/icheck.min.js') }}"></script>
+<!-- <script type="text/javascript" src="{{ URL::asset('js/icheck.min.js') }}"></script> -->
 <script type="text/javascript" src="{{ URL::asset('js/owl.carousel.min.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/jquery.trackpad-scroll-emulator.min.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/bootstrap-datepicker.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/jquery.nouislider.all.min.js') }}"></script>
 
 <script type="text/javascript" src="{{ URL::asset('js/custom.js') }}"></script>
+
+
 <!-- <script type="text/javascript" src="{{ URL::asset('js/maps.js') }}"></script> -->
 
 <script>

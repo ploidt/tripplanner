@@ -25,3 +25,8 @@ Route::get('/planner', function () {
     return view('planner');
 });
 Route::post('/planner', 'AttractionController@searchAttraction');
+
+Route::get('/register', function () {
+    return view('register');
+});
+Route::post('/map', 'UserController@login');
