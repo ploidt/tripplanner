@@ -54,7 +54,7 @@ function drop(ev) {
 		    oldDiv.style.display = "none";
     	}
     });
-    
+
 }
 
 function initMap() {
@@ -72,7 +72,7 @@ function drawMap(id,latitude,longitude){
     var marker = new google.maps.Marker({
         position: mapCenter,
         map: map,
-        icon: 'http://localhost/tripplanner/public/assets/img/marker.png',
+        icon: 'http://localhost:8888/tripplanner-github/public/assets/img/marker.png',
         flat: true,
 
     });
@@ -153,10 +153,10 @@ function drawMap(id,latitude,longitude){
         		<li class="planner-day">
         			<div class="day-header">
         				<h4>Day <?php echo $i; ?> </h4>
-        				
+
         			</div>
         			<div ondrop="drop(event)" ondragover="allowDrop(event)" style="height: 600px;">
-        					
+
         			</div>
         		</li>
         	<?php } ?>
@@ -168,7 +168,7 @@ function drawMap(id,latitude,longitude){
         	<!--  <div class="row">
 	        	 <div class="col-md-4 col-sm-4" style="height: 200px;background-color: #000;margin:5px;" ondrop="drop(event)" ondragover="allowDrop(event)">
 	        	 </div>
-	        	
+
         	 </div> -->
         	 <!--end row-->
         </div>

@@ -25,3 +25,9 @@ Route::get('/planner', function () {
     return view('planner');
 });
 Route::post('/planner', 'AttractionController@searchAttraction');
+
+Route::get('/date', function () {
+    return view('date');
+});
+
+Route::post('/create-planner', 'PlannerController@store');
