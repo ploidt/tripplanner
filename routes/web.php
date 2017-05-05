@@ -26,7 +26,5 @@ Route::get('/planner', function () {
 });
 Route::post('/planner', 'AttractionController@searchAttraction');
 
-Route::get('/register', function () {
-    return view('register');
-});
-Route::post('/map', 'UserController@login');
+Route::get('/register', 'UserController@showRegister');
+Route::post('/create-user', 'UserController@register');

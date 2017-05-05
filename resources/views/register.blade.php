@@ -10,7 +10,7 @@
             </div>
         </div>
         <div class="modal-body">
-            <form class="form inputs-underline" method="post">
+            <form class="form inputs-underline" method="post" action="{{url('create-user')}}">
                 <div class="row">
                     <div class="col-md-6 col-sm-6">
                         <div class="form-group">
@@ -32,11 +32,17 @@
                 <!--enr row-->
                 <div class="row">
                     <div class="col-md-6 col-sm-6">
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="birth_date">Birth Date</label>
                             <input type="text" class="form-control" name="birth_date" id="birth_date" placeholder="DD/MM/YYYY">
-                        </div>
+                        </div> -->
                         <!--end form-group-->
+                        <div class="input-group date" data-provide="datepicker">
+                            <input type="text" class="form-control">
+                            <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-th"></span>
+                            </div>
+                        </div>
                     </div>
                     <!--end col-md-6-->
                     <div class="col-md-6 col-sm-6">
@@ -61,6 +67,11 @@
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" class="form-control" name="email" id="email" placeholder="Email">
+                </div>
+                <!--end form-group-->
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" name="username" id="username" placeholder="Username">
                 </div>
                 <!--end form-group-->
                 <div class="form-group">
@@ -93,5 +104,6 @@
 <script type="text/javascript" src="{{ URL::asset('js/countries.js') }}"></script>
 <script>
     populateCountries("country");
+    $('.datepicker').datepicker();
 </script>
 @endsection
