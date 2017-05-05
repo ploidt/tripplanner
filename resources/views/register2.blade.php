@@ -24,11 +24,8 @@
             </div>
         </div>
         <div class="modal-body">
-<<<<<<< HEAD
             <?php echo Form::open(array('url' => '/register', 'action' => 'UserController@store',
-=======
-            <?php echo Form::open(array('url' => '/create-user', 'action' => 'UserController@store',
->>>>>>> master
+
             'class' => 'form inputs-underline')); ?>
                 <div class="row">
                     <div class="col-md-6 col-sm-6">
