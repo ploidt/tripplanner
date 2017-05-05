@@ -72,7 +72,11 @@ function drawMap(id,latitude,longitude){
     var marker = new google.maps.Marker({
         position: mapCenter,
         map: map,
+<<<<<<< Updated upstream
         icon: 'http://localhost/tripplanner-git/public/assets/img/marker.png',
+=======
+        icon: 'http://localhost:8888/tripplanner-github/public/assets/img/marker.png',
+>>>>>>> Stashed changes
         flat: true,
 
     });
