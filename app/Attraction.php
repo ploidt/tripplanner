@@ -12,12 +12,21 @@ class Attraction extends Model
         'latitude', 'longitude', 'address', 'title', 'phone', 'email', 'website', 'category', 'rating', 'url', 'additional_info'
         ,'description', 'approx_time', 'entrance_free',
     ];
-    
+
     protected $hidden = [
-        
+
     ];
 
     public function images(){
         return $this->hasMany('App\Image');
     }
+
+    public function tags(){
+        return $this->hasMany('App\Tag');
+    }
+
+    public function categories(){
+        return $this->hasMany('App\Category');
+    }
+
 }

@@ -5,6 +5,7 @@
 
 use App\Attraction;
 use App\Image;
+use App\Tag;
 
 $attractions = Attraction::all();
 $images = Image::all();
@@ -24,15 +25,21 @@ function drag(ev) {
 function drop(ev) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
+    var totalTime = 0.0;
+    var previousLat = 0.0;
+    var previousLng = 0.0;
     $.ajax({
     	type: "POST",
     	url: "{{URL::asset('/planner')}}",
     	data: {id: parseInt(data)},
     	success: function(response) {
+        totalTime = parseFloat(response.approx_time) + totalTime;
     		var div = document.createElement("div");
 		    div.className = "item item-row";
 		    div.setAttribute("data-latitude",response.latitude);
 		    div.setAttribute("data-longitude",response.longitude);
+        div.setAttribute("data-approx",response.approx_time);
+        div.setAttribute("time",totalTime);
 		    div.innerHTML = "<a href='attraction/"+ data +"'>" +
 		    "<div class='image bg-transfer'>" +
 		    "<!-- <figure>Average Price: $8 - $30</figure> -->" +
@@ -43,7 +50,10 @@ function drop(ev) {
 		    "<div class='description' draggable='true' id="+ data +" ondragstart='drag(event)'>" +
 		    "<h3>"+ response.title +"</h3>" +
 		    "<h4>"+ response.address +"</h4>" +
-		    "<div class='label label-default'>Restaurant</div>" +
+        "<div class='label label-default'>"+response.category+"</div>" +
+        "<div class='label label-default'>"+response.category2+"</div>" +
+        "<div class='label label-default'>"+response.category3+"</div>" +
+		    "<h4> Recommened Duration : "+ response.approx_time+ " hour(s)</h4>" +
 		    "</div>" +
 		    "<!--end description-->" +
 		    "</a>";
@@ -52,9 +62,18 @@ function drop(ev) {
 		    drawMap("map"+data,response.latitude,response.longitude);
 		    var oldDiv = document.getElementById(data);
 		    oldDiv.style.display = "none";
+        var sum = 0.0;
+        $('.item item-row').each(function(){
+        sum += parseFloat(this.time);
+        });
+        previousLat = response.latitude;
+        previousLng = response.longitude;
+        totalTime = parseFloat(response.approx_time) + totalTime;
     	}
     });
-    
+
+
+
 }
 
 function initMap() {
@@ -153,10 +172,10 @@ function drawMap(id,latitude,longitude){
         		<li class="planner-day">
         			<div class="day-header">
         				<h4>Day <?php echo $i; ?> </h4>
-        				
+
         			</div>
         			<div ondrop="drop(event)" ondragover="allowDrop(event)" style="height: 600px;">
-        					
+
         			</div>
         		</li>
         	<?php } ?>
@@ -168,9 +187,21 @@ function drawMap(id,latitude,longitude){
         	<!--  <div class="row">
 	        	 <div class="col-md-4 col-sm-4" style="height: 200px;background-color: #000;margin:5px;" ondrop="drop(event)" ondragover="allowDrop(event)">
 	        	 </div>
-	        	
+
         	 </div> -->
         	 <!--end row-->
+           <?php
+$selectedTime = "9:00:00";
+$approxTime = 1.50;
+$whole = floor($approxTime);
+$decimal = $approxTime - $whole;
+$min = 0;
+if ($decimal == .50) {
+    $min = 30;
+}
+$endTime = strtotime($selectedTime) + ($whole*3600) + ($min*60);  //900 = 15 min X 60 sec
+echo date('h:i:s', $endTime);
+?>
         </div>
         <!-- end planner -->
 
