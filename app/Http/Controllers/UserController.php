@@ -19,6 +19,18 @@ class UserController extends Controller {
 		
 		$this->validateRequest($request);
 
+		$user = User::create([
+            'username' => $request->get('username'),
+            'email' => $request->get('email'),
+            'password'=> Hash::make($request->get('password')),
+            'firstname' => $request->get('firstname'),
+            'lastname' => $request->get('lastname'),
+            'birthdate' => $request->get('birthdate'),
+            'gender' => $request->get('gender'),
+            'country' => $request->get('country'),
+            'cluster' => 1
+        ]);
+
         return $this->success("The user with with id  has been created", 201);
 	}
 

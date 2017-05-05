@@ -116,8 +116,12 @@
 <script type="text/javascript" src="{{ URL::asset('js/jquery.nouislider.all.min.js') }}"></script>
 
 <script type="text/javascript" src="{{ URL::asset('js/custom.js') }}"></script>
+<<<<<<< HEAD
 
 
+=======
+<script type="text/javascript" src="{{ URL::asset('js/country.js') }}"></script>
+>>>>>>> master
 <!-- <script type="text/javascript" src="{{ URL::asset('js/maps.js') }}"></script> -->
 
 <script>

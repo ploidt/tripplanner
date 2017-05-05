@@ -57,6 +57,13 @@ div.scrollable h3{
 	margin-left: auto;
 	margin-right: auto;
 }
+<<<<<<< HEAD
 .register-form .form-radio{
 	margin-top: 7px;
 }
+=======
+
+.register-form .dim-input{
+	opacity: 0.4;
+}
+>>>>>>> master

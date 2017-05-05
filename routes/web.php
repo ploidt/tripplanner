@@ -24,7 +24,18 @@ Route::get('/marker', 'SearchController@searchMapAll');
 Route::get('/planner', function () {
     return view('planner');
 });
+<<<<<<< HEAD
 Route::post('/planner', 'AttractionController@searchAttraction');
 
 Route::get('/register', 'UserController@showRegister');
 Route::post('/register', 'UserController@store');
+=======
+Route::post('/create-user', 'UserController@store');
+
+Route::get('/validation','ValidationController@showform');
+Route::post('/validation','ValidationController@validateform');
+
+Route::get('/register', function () {
+    return view('register2');
+});
+>>>>>>> master
