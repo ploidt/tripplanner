@@ -27,4 +27,4 @@ Route::get('/planner', function () {
 Route::post('/planner', 'AttractionController@searchAttraction');
 
 Route::get('/register', 'UserController@showRegister');
-Route::post('/create-user', 'UserController@register');
+Route::post('/register', 'UserController@store');
