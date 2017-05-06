@@ -20,7 +20,22 @@ class Attraction extends Model
     public function images(){
         return $this->hasMany('App\Image');
     }
+
+
+    public function tags(){
+        return $this->hasMany('App\Tag');
+    }
+
+    public function categories(){
+        return $this->hasMany('App\Category');
+    }
+
     public function plannerDetail(){
         return $this->hasOne('App\PlannerDetail');
     }
+
+    public function openingHours(){
+        return $this->hasMany('App\OpeningHour');
+    }
+
 }
