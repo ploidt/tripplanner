@@ -1,3 +1,5 @@
+<?php $user = Auth::user();
+?>
 <!DOCTYPE html>
 
 <html lang="en-US">
@@ -37,9 +39,14 @@
                 <a href="{{url('map')}}">Map</a>
                 </div>
                 <div class="secondary-nav">
-                    <a href="#" data-modal-external-file="modal_sign_in.php" data-target="modal-sign-in">Sign In</a>
-                    <a href="#" class="promoted" data-modal-external-file="modal_register.php" data-target="modal-register">Register</a>
+                @if($user)
+                    <a href="logout" class="promoted">Log Out</a>
+                @else
+                    <a href="login">Sign In</a>
+                    <a href="register" class="promoted">Register</a>
                 </div>
+
+                @endif
                 <!--end secondary-nav-->
                 
                 <div class="nav-btn">
@@ -109,7 +116,7 @@
 <script type="text/javascript" src="{{ URL::asset('js/infobox.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/jquery.validate.min.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/jquery.fitvids.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('js/icheck.min.js') }}"></script>
+<!-- <script type="text/javascript" src="{{ URL::asset('js/icheck.min.js') }}"></script> -->
 <script type="text/javascript" src="{{ URL::asset('js/owl.carousel.min.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/jquery.trackpad-scroll-emulator.min.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/bootstrap-datepicker.js') }}"></script>

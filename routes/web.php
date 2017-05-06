@@ -24,4 +24,10 @@ Route::get('/marker', 'SearchController@searchMapAll');
 Route::get('/planner', function () {
     return view('planner');
 });
+
 Route::post('/planner', 'AttractionController@searchAttraction');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
+Route::get('logout', array('uses' => 'HomeController@doLogout'));
