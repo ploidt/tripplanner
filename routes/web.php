@@ -24,11 +24,10 @@ Route::get('/marker', 'SearchController@searchMapAll');
 Route::get('/planner', function () {
     return view('planner');
 });
-Route::post('/create-user', 'UserController@store');
 
-Route::get('/validation','ValidationController@showform');
-Route::post('/validation','ValidationController@validateform');
+Route::post('/planner', 'AttractionController@searchAttraction');
 
-Route::get('/register', function () {
-    return view('register2');
-});
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
+Route::get('logout', array('uses' => 'HomeController@doLogout'));

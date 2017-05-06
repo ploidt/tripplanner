@@ -91,7 +91,7 @@ function drawMap(id,latitude,longitude){
     var marker = new google.maps.Marker({
         position: mapCenter,
         map: map,
-        icon: 'http://localhost/tripplanner/public/assets/img/marker.png',
+        icon: 'http://localhost/tripplanner-git/public/assets/img/marker.png',
         flat: true,
 
     });

@@ -58,6 +58,13 @@ div.scrollable h3{
 	margin-right: auto;
 }
 
-.register-form .dim-input{
-	opacity: 0.4;
+.register-form .form-radio{
+	margin-top: 7px;
 }
+
+.signin-form{
+	width: 500px !important;
+	margin-left: auto;
+	margin-right: auto;
+}
+
