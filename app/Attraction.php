@@ -34,4 +34,8 @@ class Attraction extends Model
         return $this->hasOne('App\PlannerDetail');
     }
 
+    public function clusters(){
+            return $this->belongsToMany('App\Cluster');
+    }
+
 }

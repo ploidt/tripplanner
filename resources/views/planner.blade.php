@@ -3,9 +3,20 @@
 
 <?php
 
+use App\User;
 use App\Attraction;
 use App\Image;
 use App\Tag;
+use App\Cluster;
+
+$user = Auth::user();
+if($user){
+    $userCluster = $user->cluster;
+
+    $clusteredAttraction = Cluster::where('cluster',$userCluster)->orderBy('rating', 'desc')->get();
+    $clusteredAttraction = $clusteredAttraction->attractions;
+    echo $clusteredAttraction;
+}
 
 $attractions = Attraction::all();
 $images = Image::all();
