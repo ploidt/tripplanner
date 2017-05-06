@@ -13,9 +13,13 @@ $user = Auth::user();
 if($user){
     $userCluster = $user->cluster;
 
-    $clusteredAttraction = Cluster::where('cluster',$userCluster)->orderBy('rating', 'desc')->get();
-    $clusteredAttraction = $clusteredAttraction->attractions;
-    echo $clusteredAttraction;
+    $clusteredAttractions = Cluster::where('cluster',$userCluster)->orderBy('rating', 'desc')->get();
+    // $clusteredAttraction = $clusteredAttraction->attractions;
+    foreach ($clusteredAttractions as $clusteredAttraction ) {
+        // $clusteredAttraction->attraction_id;
+    }
+
+
 }
 
 $attractions = Attraction::all();
@@ -132,8 +136,9 @@ function drawMap(id,latitude,longitude){
         <div class="row">
 
             <div class="scrollable">
-
-            @foreach($attractions as $attraction)
+                
+            @foreach($clusteredAttractions as $clusteredAttraction)
+                <?php $attraction = Attraction::find($clusteredAttraction->attraction_id) ?>  
                 <div class="col-md-4 col-sm-4" draggable="true" id="{{$attraction->id}}"  ondragstart="drag(event)">
                     <div class="item">
                         <figure class="ribbon"></figure>
