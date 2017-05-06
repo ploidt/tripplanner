@@ -27,5 +27,7 @@ Route::get('/planner', function () {
 
 Route::post('/planner', 'AttractionController@searchAttraction');
 
-Route::get('/register', 'UserController@showRegister');
-Route::post('/register', 'UserController@store');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
+Route::get('logout', array('uses' => 'HomeController@doLogout'));

@@ -37,7 +37,7 @@
                 <a href="{{url('map')}}">Map</a>
                 </div>
                 <div class="secondary-nav">
-                    <a href="#" data-modal-external-file="modal_sign_in.php" data-target="modal-sign-in">Sign In</a>
+                    <a href="signin">Sign In</a>
                     <a href="register" class="promoted">Register</a>
                 </div>
                 <!--end secondary-nav-->
