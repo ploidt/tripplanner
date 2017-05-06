@@ -1,3 +1,5 @@
+<?php $user = Auth::user();
+?>
 <!DOCTYPE html>
 
 <html lang="en-US">
@@ -37,9 +39,14 @@
                 <a href="{{url('map')}}">Map</a>
                 </div>
                 <div class="secondary-nav">
-                    <a href="signin">Sign In</a>
+                @if($user)
+                    <a href="logout" class="promoted">Log Out</a>
+                @else
+                    <a href="login">Sign In</a>
                     <a href="register" class="promoted">Register</a>
                 </div>
+
+                @endif
                 <!--end secondary-nav-->
                 
                 <div class="nav-btn">

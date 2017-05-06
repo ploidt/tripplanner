@@ -1,68 +1,58 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Login</div>
-                <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
-                        {{ csrf_field() }}
-
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-8 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Login
-                                </button>
-
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    Forgot Your Password?
-                                </a>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+<div class="signin-form">
+    <div class="modal-header">
+        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+        <div class="section-title">
+            <h2>Login</h2>
         </div>
     </div>
+    @if (count($errors) > 0)
+    <div class = "alert alert-danger">
+        <ul>
+         @foreach ($errors->all() as $error)
+         <li>{{ $error }}</li>
+         @endforeach
+     </ul>
+ </div>
+ @endif
+
+ <div class="modal-body">
+    <?php echo Form::open(array('url' => '/login','class' => 'form inputs-underline')); ?>
+    {{ csrf_field() }}
+    <div class="form-group">
+        <?php echo Form::label('email', 'Email'); ?>
+        <?php echo Form::text('email', null, array('class' => 'form-control','placeholder' => 'Email')); ?>
+    </div>
+    <!--end form-group-->
+    
+    <div class="form-group">
+        <?php echo Form::label('password', 'Password'); ?>
+        <?php echo Form::password('password',array('class' => 'form-control', 'placeholder' => 'Password')); ?>
+    </div>
+    
+    
+    <!-- <div class="form-group">
+        <div class="col-md-6 col-md-offset-4">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
+                </label>
+            </div>
+        </div>
+    </div> -->
+    <div class="form-group center">
+        <?php echo Form::submit('Sign In',array('class' => 'btn btn-primary width-100')); ?>
+        <a class="btn btn-link" href="{{ route('password.request') }}">
+            Forgot Your Password?
+        </a>
+    </div>
+    <!--end form-group-->
+    <?php echo Form::close() ?>
+
+    
+    
+</div>
 </div>
 @endsection

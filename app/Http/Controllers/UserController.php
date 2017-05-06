@@ -10,41 +10,6 @@ use App\Http\Controllers\Auth;
 
 class UserController extends Controller {
 
-	public function showRegister(){
-    	return view('register2');
-    }
-
-
-	public function store(Request $request)
-	{
-		
-		$this->validate($request,[
-        	'firstname' => 'required',
-            'lastname' => 'required',
-            'birthdate' => 'required|date',
-            'gender' => 'required',
-            'country' => 'required',
-            'email' => 'required|email|unique:users', 
-            'username' => 'required',
-            'password' => 'required|min:6',
-            
-        ]);
-		$password = Hash::make($request->get('password'));
-
-		$user = User::create([
-            'username' => $request->get('username'),
-            'email' => $request->get('email'),
-            'firstname' => $request->get('firstname'),
-            'lastname' => $request->get('lastname'),
-            'birthdate' => $request->get('birthdate'),
-            'gender' => $request->get('gender'),
-            'country' => $request->get('country'),
-            'password'=> $password,
-        ]);
-
-        return $this->success("The user with with id  has been created", 201);
-	}
-
 	public function showSignin(){
     	return view('signin');
     }
