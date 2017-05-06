@@ -1,4 +1,5 @@
 @extends('layouts.app')
+<?php use Carbon\Carbon; ?>
 
 @section('content')
 <div class="container">
@@ -10,7 +11,10 @@
                 <div class="panel-body">
                     You are logged in!
                     <?php $user = Auth::user();
-                    echo $user->id ?>
+                    echo $user->id; 
+                    echo "<br>";
+                    echo "cluster: ".$user->cluster;
+                     ?>
                 </div>
             </div>
         </div>

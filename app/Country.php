@@ -9,7 +9,7 @@ class Country extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'abbr','value', 
+        'abbr','value', 'countrynum',
     ];
 
     protected $hidden = [
