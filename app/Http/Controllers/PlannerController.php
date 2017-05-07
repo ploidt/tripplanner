@@ -8,6 +8,9 @@ use App\User;
 
 class PlannerController extends Controller {
 
+	public function store(Request $request){
+
+	}
 	
 	
 }

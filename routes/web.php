@@ -31,3 +31,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 Route::get('logout', array('uses' => 'HomeController@doLogout'));
+
+Route::get('/preplanner', function () {
+    return view('date');
+});
+Route::post('/preplanner', 'PLannerController@store');

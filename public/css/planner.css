@@ -95,3 +95,7 @@ div.scrollable h3{
 #planner .item .additional-info{
 	padding: 10px 20px;
 }
+
+.preplanner-form .form.inputs-underline label:not(.no-margin), .input-group.inputs-underline label:not(.no-margin){
+	font-size: 14px;
+}

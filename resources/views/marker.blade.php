@@ -22,6 +22,7 @@ echo '<markers>';
 
 // Iterate through the rows, printing XML nodes for each
 foreach ($attractions as $attraction) {
+	$address = explode(",",$attraction->address);
   // Add to XML document node
   echo '<marker ';
   echo 'id="' . $attraction->id . '" ';
