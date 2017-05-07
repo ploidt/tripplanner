@@ -4,20 +4,21 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Cluster extends Model
+class Tag extends Model
 {
     //
+
     public $timestamps = false;
 
     protected $fillable = [
-        'cluster','rating',
+        'tag',
     ];
 
     protected $hidden = [
 
     ];
 
-    public function attractions(){
+    public function attraction(){
         return $this->belongsTo('App\Attraction');
     }
 }

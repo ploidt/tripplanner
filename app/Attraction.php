@@ -35,7 +35,7 @@ class Attraction extends Model
     }
 
     public function clusters(){
-            return $this->belongsToMany('App\Cluster');
+            return $this->belongsTo('App\Cluster');
     }
 
 }

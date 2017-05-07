@@ -15,11 +15,13 @@ class AttractionController extends Controller {
 		$address = explode(",",$attraction->address);
 
 		return response()->json([
+			'id' => $attraction->id,
 			'title' => $attraction->title,
 			'image' => $image->first()->url,
 			'latitude' => $attraction->latitude,
 			'longitude' => $attraction->longitude,
-			'address' => $address[0]
+			'address' => $address[0],
+			'approx_time' => $attraction->approx_time,
 			]);
 	}
 }

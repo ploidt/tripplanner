@@ -84,8 +84,11 @@ class RegisterController extends Controller
             $age = 5;
         }
         $gender = $data['gender'];
-        $countrynum = Country::where('value',$data['country'])->first();
-        $countrynum = $countrynum->countrynum;
+        $country = Country::where('abbr',$data['country'])->first();
+        if(!$country){
+          $country = Country::where('value',$data['country'])->first();
+        }
+        $countrynum = $country->countrynum;
         $cluster = $this->findCluster($gender,$age,$countrynum);
 
 

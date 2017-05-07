@@ -12,10 +12,7 @@ use App\Cluster;
 $user = Auth::user();
 if($user){
     $userCluster = $user->cluster;
-
-    $clusteredAttraction = Cluster::where('cluster',$userCluster)->orderBy('rating', 'desc')->get();
-    $clusteredAttraction = $clusteredAttraction->attractions;
-    echo $clusteredAttraction;
+    $clusteredAttractions = Cluster::where('cluster',$userCluster)->orderBy('rating', 'desc')->get();
 }
 
 $attractions = Attraction::all();
@@ -29,59 +26,68 @@ function allowDrop(ev) {
 }
 
 function drag(ev) {
+    var img = document.createElement("img");
+    img.src = "{{asset('assets/img/marker.png')}}";
+    ev.dataTransfer.setDragImage(img, 0, 0);
     ev.dataTransfer.setData("text", ev.target.id);
-    console.log("target id = " + ev.target.id);
 }
 
-function drop(ev) {
+function drop(ev, day) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
     var totalTime = 0.0;
     var previousLat = 0.0;
     var previousLng = 0.0;
+    var childElement = document.getElementById(data);
+    
     $.ajax({
-        type: "POST",
-        url: "{{URL::asset('/planner')}}",
-        data: {id: parseInt(data)},
-        success: function(response) {
+    type: "POST",
+    url: "{{URL::asset('/planner')}}",
+    data: {id: parseInt(data)},
+    success: function(response) {
         totalTime = parseFloat(response.approx_time) + totalTime;
-            var div = document.createElement("div");
-            div.className = "item item-row";
-            div.setAttribute("data-latitude",response.latitude);
-            div.setAttribute("data-longitude",response.longitude);
-        div.setAttribute("data-approx",response.approx_time);
-        div.setAttribute("time",totalTime);
-            div.innerHTML = "<a href='attraction/"+ data +"'>" +
-            "<div class='image bg-transfer'>" +
-            "<!-- <figure>Average Price: $8 - $30</figure> -->" +
-            "<img src='{{URL::asset('/')}}" + response.image + "' alt=''>" +
-            "</div>" +
-            "<!--end image-->" +
-            "<div class='map' id='map" + data +"'></div>" +
-            "<div class='description' draggable='true' id="+ data +" ondragstart='drag(event)'>" +
-            "<h3>"+ response.title +"</h3>" +
-            "<h4>"+ response.address +"</h4>" +
-        "<div class='label label-default'>"+response.category+"</div>" +
-        "<div class='label label-default'>"+response.category2+"</div>" +
-        "<div class='label label-default'>"+response.category3+"</div>" +
-            "<h4> Recommened Duration : "+ response.approx_time+ " hour(s)</h4>" +
-            "</div>" +
-            "<!--end description-->" +
-            "</a>";
-            ev.target.appendChild(div);
-            console.log(data);
-            drawMap("map"+data,response.latitude,response.longitude);
-            var oldDiv = document.getElementById(data);
-            oldDiv.style.display = "none";
+        if (childElement) {
+            if($(ev.target).hasClass( "droppable" ))    {           //Only allow drop inside the 2 divs
+                childElement.className = 'col-md-12 col-sm-12 drop-attraction';
+                childElement.setAttribute("data-latitude",response.latitude);
+                childElement.setAttribute("data-longitude",response.longitude);
+                childElement.setAttribute("data-approx",response.approx_time);
+                childElement.setAttribute("time",totalTime);
+                var descriptionDiv = childElement.getElementsByTagName('div')[1];
+                descriptionDiv.innerHTML = "<h3>" + response.title + "</h3>" +
+                "<h4>"+ response.address +"</h4>";
+                var additionalInfoDiv = childElement.getElementsByClassName('additional-info');
+                additionalInfoDiv.innerHTML = "<div><div class='category label label-default'>" + response.category + "</div>" +
+                "<div class='category label label-default'>" + response.category2 + "</div>" +
+                "<div class='category label label-default'>" + response.category3 + "</div></div>";
+
+                var recommendDuration = document.createElement('h4');
+                recommendDuration.innerHTML = "Recommened Duration : "+ response.approx_time + " hour(s)";
+                additionalInfoDiv[0].appendChild(recommendDuration);
+                var attractionContentDiv = childElement.getElementsByTagName('a')[0];
+                attractionContentDiv.setAttribute("style","height:180px");
+                var mapDiv = document.createElement("div");
+                mapDiv.className = 'map';
+                mapDiv.setAttribute("id", "map"+data);
+                attractionContentDiv.appendChild(mapDiv);
+                drawMap("map"+data,response.latitude,response.longitude);
+
+                ev.target.appendChild(childElement);
+            }
+            return false;
+        }
+        
         var sum = 0.0;
         $('.item item-row').each(function(){
-        sum += parseFloat(this.time);
+            sum += parseFloat(this.time);
         });
         previousLat = response.latitude;
         previousLng = response.longitude;
         totalTime = parseFloat(response.approx_time) + totalTime;
-        }
+    }
     });
+    
+    
 
 
 
@@ -102,7 +108,7 @@ function drawMap(id,latitude,longitude){
     var marker = new google.maps.Marker({
         position: mapCenter,
         map: map,
-        icon: 'http://localhost/tripplanner-git/public/assets/img/marker.png',
+        icon: "{{asset('assets/img/marker.png')}}",
         flat: true,
 
     });
@@ -115,6 +121,50 @@ function drawMap(id,latitude,longitude){
 
 }
 
+function reappearAttraction(attractionId){
+    document.getElementById(attractionId).remove();
+    $.ajax({
+    type: "POST",
+    url: "{{URL::asset('/planner')}}",
+    data: {id: parseInt(attractionId)},
+    success: function(response) {
+        var scrollableDiv = document.getElementById('recommendAttraction');
+        var newAttractionDiv = document.createElement('div');
+        newAttractionDiv.className = "col-md-4 col-sm-4";
+        newAttractionDiv.setAttribute("draggable", "true");
+        newAttractionDiv.setAttribute("id", response.id);
+        newAttractionDiv.setAttribute("ondragstart", "drag(event)");
+        newAttractionDiv.innerHTML = "<div class='item'>" +
+            "<a href='attraction/" + response.id + "' class='attraction-content'>" +
+            "<div class='description'>" +
+            "<h3>" + response.title + "</h3>" +
+            "</div>" +
+            "<!--end description-->" +
+            "<div class='image bg-transfer'>" +
+            "<img src='assets/images/" + response.id + "-1.jpg'>" +
+            "</div>" +
+            "<!--end image-->" +
+            "</a>" +
+            "<div class='additional-info'>" +
+            "<div class='category label label-default'>" + response.category + "</div>" +
+            "<div class='category label label-default'>" + response.category2 + "</div>" +
+            "<div class='category label label-default'>" + response.category3 + "</div>" +
+            "</div>" +
+            "<div class='controls-more'>" +
+            "<ul>" +
+            "<li><a href='#' class='quick-detail'>Quick detail</a></li>" +
+            "<li><a href='#'' onclick='reappearAttraction(" + response.id + ")''>Remove</a></li>"+ 
+            "</ul>" + 
+            "</div>" +
+            "<!--end controls-more-->" +
+            "</div>" +
+            "<!--end additional-info-->" +
+            "</div>" +
+            "<!--end item-->";
+            scrollableDiv.insertBefore(newAttractionDiv, scrollableDiv.firstChild);
+    }
+    });
+}
 </script>
 
 <section class="block">
@@ -131,15 +181,31 @@ function drawMap(id,latitude,longitude){
         <!--end center-->
         <div class="row">
 
-            <div class="scrollable">
-
-            @foreach($attractions as $attraction)
+            <div class="scrollable droppable"  id="recommendAttraction" ondrop="drop(event,'scrollable')" ondragover="allowDrop(event)" draggable="false">
+            <?php 
+                if(!$user){
+                    $clusteredAttractions = $attractions;
+                } 
+            ?>
+            @foreach($clusteredAttractions as $clusteredAttraction)
+               
+                <?php 
+                if($user){
+                    $attraction = Attraction::find($clusteredAttraction->attraction_id); 
+                }else{
+                    $attraction = $clusteredAttraction;
+                }
+                
+                $categories = $attraction->categories;
+                // echo $categories;
+                ?>
+                
                 <div class="col-md-4 col-sm-4" draggable="true" id="{{$attraction->id}}"  ondragstart="drag(event)">
                     <div class="item">
                         <figure class="ribbon"></figure>
-                        <a href="detail.html">
+                        <a href="attraction/{{$attraction->id}}" class="attraction-content">
                             <div class="description">
-                                <div class="label label-default">{{$attraction->category}}</div>
+                                <!-- <div class="label label-default">{{$attraction->category}}</div> -->
                                 <h3>{{$attraction->title}}</h3>
                                 <!-- <h4>840 My Drive</h4> -->
                             </div>
@@ -150,16 +216,15 @@ function drawMap(id,latitude,longitude){
                             <!--end image-->
                         </a>
                         <div class="additional-info">
-                            <figure class="circle" title="Featured"><i class="fa fa-check"></i></figure>
-                            <div class="rating-passive" data-rating="5">
-                                <span class="stars"></span>
-                                <span class="reviews">12</span>
+                            <div>
+                                @foreach($categories as $category)
+                                <div class="label label-default">{{$category->category}}</div>
+                                @endforeach
                             </div>
                             <div class="controls-more">
                                 <ul>
-                                    <li><a href="#">Add to favorites</a></li>
-                                    <li><a href="#">Add to watchlist</a></li>
                                     <li><a href="#" class="quick-detail">Quick detail</a></li>
+                                    <li><a href="#" onclick="reappearAttraction({{$attraction->id}})">Remove</a></li>
                                 </ul>
                             </div>
                             <!--end controls-more-->
@@ -180,12 +245,12 @@ function drawMap(id,latitude,longitude){
         <div id="planner">
             <ul style="width: 990px;">
             <?php for ($i=1; $i < 5 ; $i++) { ?>
-                <li class="planner-day">
-                    <div class="day-header">
+                <li class="planner-day" id="plannerday{{$i}}">
+                    <div class="day-header" draggable="false">
                         <h4>Day <?php echo $i; ?> </h4>
 
                     </div>
-                    <div ondrop="drop(event)" ondragover="allowDrop(event)" style="height: 600px;">
+                    <div ondrop="drop(event,<?php echo $i; ?>)" ondragover="allowDrop(event)" draggable="false" style="height: 600px;" class="droppable">
 
                     </div>
                 </li>

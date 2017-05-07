@@ -67,4 +67,31 @@ div.scrollable h3{
 	margin-left: auto;
 	margin-right: auto;
 }
-
+.li-item{
+	padding-bottom: 6px;
+}
+.move{
+	float: left;
+    display: inline-block;
+    width: 30px;
+}
+.item.item-row > a {
+	width: 95% !important;
+}
+#planner .map{
+	height: inherit !important;
+	float: right;
+	width: 30%;
+}
+.category.label.label-default{
+	margin-right: 5px;
+}
+#planner figure{
+	display: none;
+}
+#planner .image.bg-transfer{
+	width: 70%;
+}
+#planner .item .additional-info{
+	padding: 10px 20px;
+}
