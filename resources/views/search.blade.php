@@ -73,6 +73,17 @@ if($searchResult){
 		</form>
 		<!--end form-hero-->
 	</div>
+	<div class="sidebar-detail">
+        <div class="tse-scrollable">
+            <div class="tse-content">
+                <div class="sidebar-wrapper"></div>
+                <!--end sidebar-detail-content-->
+            </div>
+            <!--end tse-content-->
+        </div>
+        <!--end tse-scrollable-->
+    </div>
+    <!--end sidebar-detail-->
 	<div class="results">
 		<div class="tse-scrollable">
 			<div class="tse-content">
