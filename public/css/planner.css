@@ -99,3 +99,27 @@ div.scrollable h3{
 	width: 50%;
 	float: left;
 } 
+.label-time{
+  font-size: 11px;
+  letter-spacing: 1px;
+  background-color: #4611a7 !important;
+  color: #fff !important;
+}
+
+.arrowleft-slide{
+  float: left;
+  position: absolute;
+  top: 850px;
+  margin: 0px 15px 15px 0px;
+  clear: both;
+  z-index: 1;
+}
+
+.arrowright-slide{
+  float: right;
+  position: absolute;
+  top: 850px;
+  right: 25px;
+  clear: both;
+  z-index: 1;
+}

@@ -25,11 +25,14 @@ function allowDrop(ev) {
     ev.preventDefault();
 }
 
-function drag(ev) {
+function drag(ev,parentNode) {
     var img = document.createElement("img");
     img.src = "{{asset('assets/img/marker.png')}}";
     ev.dataTransfer.setDragImage(img, 0, 0);
     ev.dataTransfer.setData("text", ev.target.id);
+    ev.dataTransfer.setData("parent", parentNode.id);
+    // console.log(parentNode.id);
+
 }
 
 function drop(ev, day) {
@@ -39,7 +42,7 @@ function drop(ev, day) {
     var previousLat = 0.0;
     var previousLng = 0.0;
     var childElement = document.getElementById(data);
-    
+    var parent = ev.dataTransfer.getData("parent");
     $.ajax({
     type: "POST",
     url: "{{URL::asset('/planner')}}",
@@ -56,14 +59,14 @@ function drop(ev, day) {
                 var descriptionDiv = childElement.getElementsByTagName('div')[1];
                 descriptionDiv.innerHTML = "<h3>" + response.title + "</h3>" +
                 "<h4>"+ response.address +"</h4>";
-                var additionalInfoDiv = childElement.getElementsByClassName('additional-info');
-                additionalInfoDiv.innerHTML = "<div><div class='category label label-default'>" + response.category + "</div>" +
-                "<div class='category label label-default'>" + response.category2 + "</div>" +
-                "<div class='category label label-default'>" + response.category3 + "</div></div>";
+                var additionalInfoDiv = childElement.getElementsByClassName('additional-info')[0];
+                if(parent && parent == 'recommendAttraction') {
+                  var recommendDuration = document.createElement('div');
+                    recommendDuration.setAttribute("id", "approxTime");
+                    recommendDuration.innerHTML = "<h4>Recommened Duration : "+ response.approx_time + " hour(s)</h4>";
+                    additionalInfoDiv.appendChild(recommendDuration);
+                }
 
-                var recommendDuration = document.createElement('h4');
-                recommendDuration.innerHTML = "Recommened Duration : "+ response.approx_time + " hour(s)";
-                additionalInfoDiv[0].appendChild(recommendDuration);
                 var attractionContentDiv = childElement.getElementsByTagName('a')[0];
                 attractionContentDiv.setAttribute("style","height:180px");
                 var mapDiv = document.createElement("div");
@@ -200,7 +203,7 @@ function reappearAttraction(attractionId){
                 // echo $categories;
                 ?>
                 
-                <div class="col-md-4 col-sm-4" draggable="true" id="{{$attraction->id}}"  ondragstart="drag(event)">
+                <div class="col-md-4 col-sm-4" draggable="true" id="{{$attraction->id}}"  ondragstart="drag(event,this.parentNode)">
                     <div class="item">
                         <figure class="ribbon"></figure>
                         <a href="attraction/{{$attraction->id}}" class="attraction-content">
@@ -216,8 +219,10 @@ function reappearAttraction(attractionId){
                             <!--end image-->
                         </a>
                         <div class="additional-info">
-                            <div>
+                            <div style="overflow: hidden;">
+                                <?php $i = 0; ?>
                                 @foreach($categories as $category)
+                                <?php if ($i++ > 4) break; ?>
                                 <div class="label label-default">{{$category->category}}</div>
                                 @endforeach
                             </div>
