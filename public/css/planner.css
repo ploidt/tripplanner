@@ -95,3 +95,7 @@ div.scrollable h3{
 #planner .item .additional-info{
 	padding: 10px 20px;
 }
+.modal-body .left{
+	width: 50%;
+	float: left;
+} 

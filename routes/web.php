@@ -21,7 +21,7 @@ Route::post('/map', 'SearchController@search');
 Route::post('/marker', 'SearchController@searchMap');
 Route::get('/marker', 'SearchController@searchMapAll');
 
-Route::get('/planner', function () {
+Route::get('/yourplanner', function () {
     return view('planner');
 });
 

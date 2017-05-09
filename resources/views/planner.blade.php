@@ -266,18 +266,18 @@ function reappearAttraction(attractionId){
 
              </div> -->
              <!--end row-->
-           <?php
-$selectedTime = "9:00:00";
-$approxTime = 1.50;
-$whole = floor($approxTime);
-$decimal = $approxTime - $whole;
-$min = 0;
-if ($decimal == .50) {
-    $min = 30;
-}
-$endTime = strtotime($selectedTime) + ($whole*3600) + ($min*60);  //900 = 15 min X 60 sec
-echo date('h:i:s', $endTime);
-?>
+            <?php
+                $selectedTime = "9:00:00";
+                $approxTime = 1.50;
+                $whole = floor($approxTime);
+                $decimal = $approxTime - $whole;
+                $min = 0;
+                if ($decimal == .50) {
+                    $min = 30;
+                }
+                $endTime = strtotime($selectedTime) + ($whole*3600) + ($min*60);  //900 = 15 min X 60 sec
+                echo date('h:i:s', $endTime);
+            ?>
         </div>
         <!-- end planner -->
 
