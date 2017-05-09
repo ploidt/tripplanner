@@ -25,6 +25,12 @@ class SearchController extends Controller {
         $result = Attraction::where('title','like',"%$keyword%")->get();
         return view('search', ["searchResult" => $result, "keyword" => $keyword]);
     }
+    
+    public function searchId($id) {
+
+        $result = Attraction::find($id);
+        return view('detail', ["searchResult" => $result]);
+    }
 
     public function searchMap() {
 

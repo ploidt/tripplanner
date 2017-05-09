@@ -31,3 +31,16 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 Route::get('logout', array('uses' => 'HomeController@doLogout'));
+
+Route::get('/attraction', function () {
+    return view('detail');
+});
+Route::get('/attraction/{id}', 'SearchController@searchId');
+
+Route::get('/homepage', function () {
+    return view('homepage');
+});
+
+Route::get('/preplanner', function () {
+    return view('date');
+});

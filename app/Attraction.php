@@ -38,4 +38,8 @@ class Attraction extends Model
             return $this->belongsTo('App\Cluster');
     }
 
+    public function openingHours(){
+        return $this->hasMany('App\OpeningHour');
+    }
+
 }
