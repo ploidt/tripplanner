@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class PlannerDetail extends Model
 {
+  public $timestamps = false;
+  
   protected $fillable = [
       'date', 'orderOfPlan',
   ];

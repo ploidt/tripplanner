@@ -36,7 +36,7 @@
             <div class="right">
                 <div class="primary-nav">
                 <a href="{{url('homepage')}}">Home</a>
-                <a href="{{url('yourplanner')}}">Planner</a>
+                <a href="{{url('user/'.$user->id.'/planner')}}">Planner</a>
                 <a href="{{url('map')}}">Map</a>
                 </div>
                 <div class="secondary-nav">

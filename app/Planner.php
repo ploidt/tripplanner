@@ -11,7 +11,7 @@ class Planner extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'lengthOfStay', 'arrivalDate', 'departDate', 'travelWith'
+        'lengthOfStay', 'arrivalDate', 'departDate', 'travelWith',
     ];
 
     protected $hidden = [

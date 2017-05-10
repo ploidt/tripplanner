@@ -42,4 +42,8 @@ Route::get('logout', array('uses' => 'HomeController@doLogout'));
 Route::get('/attraction', function () {return view('detail');});
 Route::get('/attraction/{id}', 'SearchController@searchId');
 
-
+Route::get('/user/{id}/planner', 'PlannerController@show');
+Route::get('/delete/planner/{planner_id}', 'PlannerController@destroy');
+Route::get('/edit/planner/{planner_id}', 'PlannerController@update');
+Route::get('/user/{user_id}/planner/{planner_id}', 'PlannerDetailController@show');
+Route::post('/planner/save/{planner_id}', 'PlannerDetailController@save');
