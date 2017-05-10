@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'username', 'firstname', 'lastname', 'birthdate', 'gender', 'country', 'email', 'password', 'cluster'
+        'username', 'firstname', 'lastname', 'birthdate', 'gender', 'country', 'email', 'password', 'cluster',
     ];
 
     /**
@@ -29,4 +29,8 @@ class User extends Authenticatable
     protected $hidden = [
          'remember_token',
     ];
+
+    public function planners(){
+        return $this->hasMany('App\Planner');
+    }
 }

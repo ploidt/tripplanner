@@ -6,65 +6,11 @@
 
 $currentLocation = "";
 
-// Connection to database
-$connection = mysqli_connect("localhost", "root", "admin", "locations_example");
-if (!$connection)  die("Connection failed: " . mysqli_connect_error());
-
-// Select all data from "items"
-$queryData = mysqli_query( $connection, "SELECT * FROM items WHERE id = " . $_POST['id'] );
-$data = mysqli_fetch_all( $queryData, MYSQLI_ASSOC );
-
-// Select all data from "gallery"
-$queryGallery = mysqli_query( $connection, "SELECT * FROM gallery WHERE item_id = " . $_POST['id'] );
-$gallery = mysqli_fetch_all( $queryGallery, MYSQLI_ASSOC );
-
-// Select all data from "reviews"
-$queryReviews = mysqli_query( $connection, "SELECT * FROM reviews WHERE item_id = " . $_POST['id'] );
-$reviews = mysqli_fetch_all( $queryReviews, MYSQLI_ASSOC );
-
-// Select all data from "tags"
-$queryTags = mysqli_query( $connection, "SELECT * FROM tags WHERE item_id = " . $_POST['id'] );
-$tags = mysqli_fetch_all( $queryTags, MYSQLI_ASSOC );
-
-// Select all data from "opening_hours"
-$queryOpeningHours = mysqli_query( $connection, "SELECT * FROM opening_hours WHERE item_id = " . $_POST['id'] );
-$opening_hours = mysqli_fetch_all( $queryOpeningHours, MYSQLI_ASSOC );
-
-// Select all data from "today_menu"
-$queryTodayMenu = mysqli_query( $connection, "SELECT * FROM today_menu WHERE item_id = " . $_POST['id'] );
-$todayMenu = mysqli_fetch_all( $queryTodayMenu, MYSQLI_ASSOC );
-
-// Select all data from "schedule"
-$querySchedule = mysqli_query( $connection, "SELECT * FROM schedule WHERE item_id = " . $_POST['id'] );
-$schedule = mysqli_fetch_all( $querySchedule, MYSQLI_ASSOC );
-
-// Select all data from "description_list"
-$queryDescriptionList = mysqli_query( $connection, "SELECT * FROM description_list WHERE item_id = " . $_POST['id'] );
-$description_list = mysqli_fetch_all( $queryDescriptionList, MYSQLI_ASSOC );
-
-$currentLocation = $data[0];
-
-mysqli_close($connection);
-
-// End of example //////////////////////////////////////////////////////////////////////////////////////////////////////
-
 // Modal HTML code
 
 $latitude = "";
 $longitude = "";
 $address = "";
-
-if( !empty($currentLocation['latitude']) ){
-    $latitude = $currentLocation['latitude'];
-}
-
-if( !empty($currentLocation['longitude']) ){
-    $longitude = $currentLocation['longitude'];
-}
-
-if( !empty($currentLocation['address']) ){
-    $address = $currentLocation['address'];
-}
 
 echo
 

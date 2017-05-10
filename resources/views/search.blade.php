@@ -73,6 +73,17 @@ if($searchResult){
 		</form>
 		<!--end form-hero-->
 	</div>
+	<div class="sidebar-detail">
+        <div class="tse-scrollable">
+            <div class="tse-content">
+                <div class="sidebar-wrapper"></div>
+                <!--end sidebar-detail-content-->
+            </div>
+            <!--end tse-content-->
+        </div>
+        <!--end tse-scrollable-->
+    </div>
+    <!--end sidebar-detail-->
 	<div class="results">
 		<div class="tse-scrollable">
 			<div class="tse-content">
@@ -134,20 +145,25 @@ if($searchResult){
               var id = markerElem.getAttribute('id');
               var name = markerElem.getAttribute('name');
               var address = markerElem.getAttribute('address');
+              var lat = parseFloat(markerElem.getAttribute('lat'));
+              var long = parseFloat(markerElem.getAttribute('lng'));
               var point = new google.maps.LatLng(
-                  parseFloat(markerElem.getAttribute('lat')),
-                  parseFloat(markerElem.getAttribute('lng')));
+                  lat,
+                  long);
 
               var infowincontent = document.createElement('div');
-              infowincontent.className = 'item infobox';
-              var strong = document.createElement('strong');
-              strong.innerHTML = "<a href=''>" 
-              + "<div class='description'>"
-              + "<h3>"+ name +"</h3>"
-              +	"</div>"
-              +"</a>"
-              + "<h4>"+ address +"</h4>"
-              infowincontent.appendChild(strong);
+              // infowincontent.className = 'item infobox';
+              // var strong = document.createElement('strong');
+              // strong.innerHTML = "<a href=''>" 
+              // + "<div class='description'>"
+              // + "<h3>"+ name +"</h3>"
+              // +	"</div>"
+              // +"</a>"
+              // + "<h4>"+ address +"</h4>"
+              // infowincontent.appendChild(strong);
+
+              // console.log(id,name,lat,long);
+              infowincontent = infoboxDiv(id,name,lat,long);
 
               var marker = new google.maps.Marker({
                 map: map,
@@ -198,6 +214,101 @@ if($searchResult){
       function doNothing() {}
 
     }
+
+    function infoboxDiv(id,name,lat,long){
+      	return '<div role="dialog"><div class="modal-item-detail " role="document" data-latitude="'+ lat + '" data-longitude="'+ long +'">' +
+		    // '<div class="modal-content">' +
+		        '<div class="modal-header">' +
+		            // '<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
+		            '<div class="section-title">' +
+		                '<h2>'+ name +'</h2>' +
+		            '</div>' +
+		            '<!--end section-title-->' +
+		        '</div>' +
+		        '<!--end modal-header-->' +
+		        '<div class="modal-body">' +
+		            '<div class="left">' +
+
+		                // Gallery -----------------------------------------------------------------------------------------
+
+		                
+		                    '<div class="gallery owl-carousel" data-owl-nav="1" data-owl-dots="0">' +
+		                    '<img src="assets/images/1-1.jpg" alt="">' +
+		                    '<img src="assets/images/1-1.jpg" alt="">'+
+		                    '</div>' +
+		                    '<!--end gallery-->'+
+		             
+		               
+		                '<div class="map" id="map-modal"></div>'+
+		                '<!--end map-->' +
+
+		                '<section>' +
+		                '<h3>Contact</h3>' +
+		                // Contact -----------------------------------------------------------------------------------------
+
+		                
+		                        '<h5><i class="fa fa-map-marker"></i>address</h5>' +
+		                
+
+		                // Phone -------------------------------------------------------------------------------------------
+
+		               
+		                        '<h5><i class="fa fa-phone"></i>01234567890</h5>' +
+		                
+
+		                // Email -------------------------------------------------------------------------------------------
+
+		                
+		                        '<h5><i class="fa fa-envelope"></i>test@test.com</h5>'+
+		                
+
+		                
+		                '</section>' +
+		            '</div>' +
+		            '<!--end left -->' +
+		            '<div class="right">' +
+		                '<section>' +
+		                    '<h3>About</h3>' +
+		                    '<div class="read-more"><p>description</p></div>' +
+		                '</section>' +
+		                '<!--end about-->' +
+
+		                // Tags ----------------------------------------------------------------------------------------------------------------
+
+		               
+		                    '<section>' +
+		                            '<h3>Features</h3>' +
+		                            '<ul class="tags">tags</ul>' +
+		                    '</section>' +
+		                    '<!--end tags-->'+
+		                
+
+		                
+		                // Opening Hours ---------------------------------------------------------------------------------------
+
+		                
+		                    '<section>' +
+		                        '<h3>Opening Hours</h3>' +
+		                        '<dl>' +
+		                    '<dd>9.00 - 18.00</dd>' +
+
+		                    '</dl>'+
+		                '</section>'+
+		                '<!--end opening-hours-->'+
+		                
+
+		                
+		              
+		            '</div>'+
+		            '<!--end right-->'+
+		        '</div>'+
+		        '<!--end modal-body-->'+
+		    '</div>'+
+		    // '<!--end modal-content-->'+
+		'</div></div>'+
+		'<!--end modal-dialog-->';
+
+      }
 
 </script>
 @endsection
